@@ -28,7 +28,7 @@ router.post('/', withAuth, (req, res) => {
 });
 
 // UPDATE comment (/api/comments/:id)
-router.put('/', withAuth, (req, res) => {
+router.put('/:id', withAuth, (req, res) => {
   Comment.update(req.body, {
     where: {
       id: req.params.id,
