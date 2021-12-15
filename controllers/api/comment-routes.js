@@ -15,19 +15,36 @@ router.get('/', (req, res) => {
 // CREATE comment (/api/comments)
 router.post('/', withAuth, (req, res) => {
   // expects { comment_text, post_id }
-  // check the session
-  if (req.session) {
-    Comment.create({
-      comment_text: req.body.comment_text,
-      post_id: req.body.post_id,
-      user_id: req.session.user_id,
+  Comment.create({
+    comment_text: req.body.comment_text,
+    post_id: req.body.post_id,
+    user_id: req.session.user_id,
+  })
+    .then((dbCommentData) => res.json(dbCommentData))
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json(err);
+    });
+});
+
+// UPDATE comment (/api/comments/:id)
+router.put('/', withAuth, (req, res) => {
+  Comment.update(req.body, {
+    where: {
+      id: req.params.id,
+    },
+  })
+    .then((dbCommentData) => {
+      if (!dbCommentData) {
+        res.status(404).json({ message: 'No comment found with this id' });
+        return;
+      }
+      res.json(dbCommentData);
     })
-      .then((dbCommentData) => res.json(dbCommentData))
-      .catch((err) => {
-        console.log(err);
-        res.status(500).json(err);
-      });
-  }
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json(err);
+    });
 });
 
 // DELETE comment (/api/comments/:id)
