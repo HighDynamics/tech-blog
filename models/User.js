@@ -23,6 +23,7 @@ User.init(
     username: {
       type: DataTypes.STRING,
       allowNull: false,
+      unique: true,
     },
     password: {
       type: DataTypes.STRING,
@@ -43,10 +44,15 @@ User.init(
 
       // set up beforeUpdate lifecycle 'hook' functionality
       async beforeUpdate(updatedUserData) {
-        updatedUserData.password = await bcrypt.hash(
-          updatedUserData.password,
-          10
-        );
+        // check for password update before encrypting
+        const previousPassword = updatedUserData.dataValues.password;
+        const updatedPassword = updatedUserData._previousDataValues.password;
+        if (previousPassword !== updatedPassword) {
+          updatedUserData.password = await bcrypt.hash(
+            updatedUserData.password,
+            10
+          );
+        }
         return updatedUserData;
       },
     },
