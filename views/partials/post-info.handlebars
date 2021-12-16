@@ -1,20 +1,22 @@
-<article class='post'>
-  <div class='header'>
-    <h2 class='title'>
-      {{title}}
-    </h2>
-    <div class='meta'>
-      Authored by
-      {{user.username}}
-      on
-      {{created_at}}
+<a href='/post/{{id}}'>
+  <article class='post'>
+    <div class='header'>
+      <h2 class='title'>
+        {{title}}
+      </h2>
+      <div class='meta'>
+        Authored by
+        {{user.username}}
+        on
+        {{created_at}}
+      </div>
     </div>
-  </div>
-  <div class='content-preview'>
-    {{content}}
-  </div>
-  <div class='comment-count'>
-    {{comments.length}}
-    comments
-  </div>
-</article>
+    <div class='content-preview'>
+      {{content}}
+    </div>
+    <div class='comment-count'>
+      {{comments.length}}
+      comments
+    </div>
+  </article>
+</a>
