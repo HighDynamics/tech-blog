@@ -52,9 +52,21 @@ router.get('/post/:id', (req, res) => {
         return;
       }
 
-      const post = dbPostData.get({ plain: true });
+      let post = dbPostData.get({ plain: true });
+      console.log(post);
+      // add property for conditional rendering in 'single-post.handlebars'
+      post.comments.forEach((comment) => {
+        if (comment.user_id === req.session.user_id) {
+          comment.isAuthoredByUser = true;
+        } else {
+          comment.isAuthoredByUser = false;
+        }
+      });
 
-      res.render('single-post', { post, loggedIn: req.session.loggedIn });
+      res.render('single-post', {
+        post,
+        loggedIn: req.session.loggedIn,
+      });
     })
     .catch((err) => {
       console.log(err);
