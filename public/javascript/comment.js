@@ -86,7 +86,7 @@ async function saveCommentHandler(event) {
     const response = await fetch(`/api/comments/${id}`, {
       method: 'PUT',
       body: JSON.stringify({ comment_text }),
-      headers: { 'Content-type': 'application/json' },
+      headers: { 'Content-Type': 'application/json' },
     });
 
     if (response.ok) {
