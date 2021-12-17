@@ -28,7 +28,9 @@ document
   .addEventListener('submit', addCommentHandler);
 
 function editCommentInit(event) {
-  event.preventDefault();
+  if (event.target.type !== 'button') {
+    return;
+  }
 
   const editButtonEl = event.target;
 
@@ -66,9 +68,7 @@ function editCommentInit(event) {
     .addEventListener('click', saveCommentHandler);
 }
 
-document
-  .querySelector('.edit-comment-btn')
-  .addEventListener('click', editCommentInit);
+document.querySelector('.comments').addEventListener('click', editCommentInit);
 
 async function saveCommentHandler(event) {
   event.preventDefault();
