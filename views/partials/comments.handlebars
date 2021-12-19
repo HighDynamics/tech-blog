@@ -3,7 +3,7 @@
     <div class='meta'>
       {{user.username}}
       on
-      {{created_at}}
+      {{formatDate created_at}}
       {{#if isAuthoredByUser}}
         <button class='edit-comment-btn' data-comment_id={{id}}>edit comment</button>
         <button class='delete-comment-btn' data-comment_id={{id}}>delete comment</button>

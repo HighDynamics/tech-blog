@@ -6,17 +6,19 @@
       </h2>
     </a>
     <div class='meta'>
-      Authored by
+      by
       {{user.username}}
       on
-      {{created_at}}
+      {{formatDate created_at}}
     </div>
   </div>
   <div class='content'>
     {{{addLineBreaks content}}}
   </div>
   <div class='comment-count'>
-    {{comments.length}}
-    comments
+    <a href='/post/{{id}}'>
+      {{comments.length}}
+      {{formatPlural 'comment' comments.length}}
+    </a>
   </div>
 </article>
