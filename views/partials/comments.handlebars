@@ -5,11 +5,9 @@
       on
       {{created_at}}
       {{#if isAuthoredByUser}}
-        <button
-          type='button'
-          class='edit-comment-btn'
-          data-comment_id={{id}}
-        >edit comment</button>
+        <button class='edit-comment-btn' data-comment_id={{id}}>edit comment</button>
+        <button class='delete-comment-btn' data-comment_id={{id}}>delete comment</button>
+
       {{/if}}
     </div>
     <div class='text' data-comment_id={{id}}>

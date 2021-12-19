@@ -28,7 +28,7 @@ document
   .addEventListener('submit', addCommentHandler);
 
 function editCommentInit(event) {
-  if (event.target.type !== 'button') {
+  if (event.target.className !== 'edit-comment-btn') {
     return;
   }
 
@@ -71,7 +71,10 @@ function editCommentInit(event) {
 document.querySelector('.comments').addEventListener('click', editCommentInit);
 
 async function saveCommentHandler(event) {
-  event.preventDefault();
+  if (event.target.className !== 'save-comment-btn') {
+    return;
+  }
+
   const buttonEl = event.target;
 
   const id = buttonEl.dataset.comment_id;
@@ -96,3 +99,26 @@ async function saveCommentHandler(event) {
     }
   }
 }
+
+async function deleteCommentHandler(event) {
+  event.preventDefault();
+  if (event.target.className !== 'delete-comment-btn') {
+    return;
+  }
+
+  const id = event.target.dataset.comment_id;
+
+  const response = await fetch(`/api/comments/${id}`, {
+    method: 'DELETE',
+  });
+
+  if (response.ok) {
+    document.location.reload();
+  } else {
+    alert(response.statusText);
+  }
+}
+
+document
+  .querySelector('.comments')
+  .addEventListener('click', deleteCommentHandler);
