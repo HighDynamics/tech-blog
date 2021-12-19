@@ -56,7 +56,7 @@ function editCommentInit(event) {
 
   // create input element to replace commentTextEl
   const inputEl = document.createElement('textarea');
-  inputEl.value = comment_text;
+  inputEl.value = comment_text.replaceAll('<br>', '\n');
   inputEl.dataset.comment_id = id;
 
   commentSectionEl.replaceChild(inputEl, commentTextEl);
