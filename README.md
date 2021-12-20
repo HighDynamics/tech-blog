@@ -12,6 +12,8 @@ A simple website where:
 - Users can sign up to create posts and comments
 - Users can edit their content
 
+Deployed site: [tech-blog](https://murmuring-badlands-76079.herokuapp.com/)
+
 ## Table of Contents
 
 1. [Questions](#Questions)
