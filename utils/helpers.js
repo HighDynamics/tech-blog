@@ -1,5 +1,5 @@
 function addLineBreaks(content) {
-  return content.replaceAll('\n', '<br>');
+  return content.replace(/\n/g, '<br>');
 }
 
 function formatDate(date) {
