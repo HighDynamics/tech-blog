@@ -10,10 +10,13 @@
     <div class='wrapper'>
       <header>
         <nav>
-          <a href='/'>Home</a>
           {{#if loggedIn}}
-            <a href='/dashboard'>Dashboard</a>
-            <button id='logout'>Logout</button>
+            <span>Hello, {{currentUser}}</span>
+          {{/if}}
+          <a href='/'>home</a>
+          <a href='/dashboard'>dashboard</a>
+          {{#if loggedIn}}
+            <button id='logout'>logout</button>
           {{else}}
             <a href='/login'>login/signup</a>
           {{/if}}

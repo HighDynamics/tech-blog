@@ -15,9 +15,19 @@ router.get('/', (req, res) => {
     .then((dbPostData) => {
       const posts = dbPostData.map((post) => post.get({ plain: true }));
 
+      // add property for conditional rendering of 'edit post'
+      posts.forEach((post) => {
+        if (post.user.username === req.session.username) {
+          post.isAuthoredByUser = true;
+        } else {
+          post.isAuthoredByUser = false;
+        }
+      });
+
       res.render('homepage', {
         posts,
         loggedIn: req.session.loggedIn,
+        currentUser: req.session.username,
       });
     })
     .catch((err) => {
@@ -54,8 +64,13 @@ router.get('/post/:id', (req, res) => {
       }
 
       let post = dbPostData.get({ plain: true });
-      console.log(post);
-      // add property for conditional rendering in 'single-post.handlebars'
+
+      // add property for conditional rendering of 'edit post'
+      if (post.user.username === req.session.username) {
+        post.isAuthoredByUser = true;
+      }
+
+      // add property for conditional rendering of 'edit comment' and 'delete comment'
       post.comments.forEach((comment) => {
         if (comment.user_id === req.session.user_id) {
           comment.isAuthoredByUser = true;
@@ -67,6 +82,7 @@ router.get('/post/:id', (req, res) => {
       res.render('single-post', {
         post,
         loggedIn: req.session.loggedIn,
+        currentUser: req.session.username,
       });
     })
     .catch((err) => {

@@ -20,8 +20,18 @@ router.get('/', withAuth, (req, res) => {
     ],
   })
     .then((dbPostData) => {
-      const posts = dbPostData.map((post) => post.get({ plain: true }));
-      res.render('dashboard', { posts, loggedIn: req.session.loggedIn });
+      let posts = dbPostData.map((post) => post.get({ plain: true }));
+
+      // add property to posts for editing
+      posts.forEach((post) => {
+        post.isAuthoredByUser = true;
+      });
+
+      res.render('dashboard', {
+        posts,
+        loggedIn: req.session.loggedIn,
+        currentUser: req.session.username,
+      });
     })
     .catch((err) => {
       console.log(err);
@@ -45,9 +55,12 @@ router.get('/edit/:id', withAuth, (req, res) => {
       // serialize the data
       const post = dbPostData.get({ plain: true });
 
-      console.log(post.content);
       // pass data to template
-      res.render('edit-post', { post, loggedIn: req.session.loggedIn });
+      res.render('edit-post', {
+        post,
+        loggedIn: req.session.loggedIn,
+        currentUser: req.session.username,
+      });
     })
     .catch((err) => {
       console.log(err);

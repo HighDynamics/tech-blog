@@ -11,6 +11,9 @@
       on
       {{formatDate created_at}}
     </div>
+    {{#if isAuthoredByUser}}
+      <a href='/dashboard/edit/{{id}}'>edit post</a>
+    {{/if}}
   </div>
   <div class='content'>
     {{{addLineBreaks content}}}
